@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,9 @@ namespace GameOfLife
     public class GameOfLife
     {
         bool[,] board;
+
+        Stack<int[]> StackOn = new Stack<int[]>();
+        Stack<int[]> StackOff = new Stack<int[]>();
 
         int xDim;
         int yDim;
@@ -27,7 +31,40 @@ namespace GameOfLife
                     Console.WriteLine($"{board} at {x} {y}");
                 }
             }
-            
+            updateBoard();
+        }
+
+        //gets the changes queued in the stacks and adds them to the board
+        private void updateBoard()
+        {
+            while (StackOff.Count > 0)
+            {
+                int[] item = StackOff.Pop();
+                board[item[0], item[1]] = false;
+            }
+
+            while (StackOn.Count > 0)
+            {
+                int[] item = StackOn.Pop();
+                board[item[0], item[1]] = true;
+            }
+        }
+
+        //check the number of adjacent active pixels to a said pixel
+        private int countAdjacent(int x, int y)
+        {
+            int res = 0;
+
+            if (board[x - 1, y + 1]) res++;
+            if (board[x - 1, y]) res++;
+            if (board[x - 1, y - 1]) res++;
+            if (board[x, y + 1]) res++;
+            if (board[x, y - 1]) res++;
+            if (board[x + 1, y + 1]) res++;
+            if (board[x + 1, y]) res++;
+            if (board[x + 1, y - 1]) res++;
+
+            return res;
         }
 
         //ToString override
