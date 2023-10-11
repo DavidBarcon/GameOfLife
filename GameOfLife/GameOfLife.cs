@@ -61,6 +61,16 @@ namespace GameOfLife
             }
         }
 
+        //when a pixel is active, if there are more than 3 adjacent active pixels, this is deactivated
+        private void overpopulation(int x, int y)
+        {
+            int numberOfAdjacent = countAdjacent(x, y);
+            if (numberOfAdjacent > 3)
+            {
+                StackOff.Push(new[] { x, y });
+            }
+        }
+
         //gets the changes queued in the stacks and adds them to the board
         private void updateBoard()
         {
