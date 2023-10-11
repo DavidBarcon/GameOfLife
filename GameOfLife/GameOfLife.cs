@@ -28,10 +28,23 @@ namespace GameOfLife
             {
                 for (int y = 1; y < board.GetLength(1)-1; y += 1)
                 {
-                    Console.WriteLine($"{board} at {x} {y}");
+                    if (!board[x, y])
+                    {
+                        reproduction(x, y);
+                    }
                 }
             }
             updateBoard();
+        }
+
+        //when a pixel is inactive, if there are exactly 3 active adjacent pixels, this is activated
+        private void reproduction(int x, int y)
+        {
+            int numberOfAdjacent = countAdjacent(x, y);
+            if (numberOfAdjacent == 3)
+            {
+                StackOn.Push(new[] { x, y });
+            }
         }
 
         //gets the changes queued in the stacks and adds them to the board
@@ -65,6 +78,11 @@ namespace GameOfLife
             if (board[x + 1, y - 1]) res++;
 
             return res;
+        }
+
+        public bool[,] getBoard()
+        {
+            return (bool[,])board.Clone();
         }
 
         //ToString override

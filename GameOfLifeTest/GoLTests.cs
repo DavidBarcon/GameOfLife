@@ -16,7 +16,23 @@ namespace GameOfLifeTest
                             gameOfLife.ToString());
         }
 
+        [TestMethod]
+        public void TestReproduction()
+        {
+            bool[,] board =
+            {
+                { false, false, false, false},
+                { false, false, true, false},
+                { false, true, true, false},
+                { false, false, true, false},
+            };
+            GameOfLife.GameOfLife gameOfLife =
+                new GameOfLife.GameOfLife(board);
+            gameOfLife.next();
+            board = gameOfLife.getBoard();
 
+            Assert.IsTrue(board[1,1]);
+        }
 
 
     }
