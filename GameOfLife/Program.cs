@@ -19,10 +19,18 @@ namespace GameOfLife
             };
 
             GameOfLife gameOfLife = new GameOfLife(board);
-            Console.WriteLine(gameOfLife.ToString());
+
+            for (int i = 0; i < 10; i++)
+            {
+                Console.Clear();
+                Console.WriteLine(gameOfLife.toStringPretty());
+                Thread.Sleep(3000);
+                gameOfLife.next();
+
+            }
 
 
-            
+
         }
     }
 }

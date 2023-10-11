@@ -31,6 +31,7 @@ namespace GameOfLife
                     if (board[x, y])
                     {
                         underpopulation(x, y);
+                        overpopulation(x, y);
                     }
                     else
                     {
