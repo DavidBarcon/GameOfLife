@@ -23,7 +23,7 @@ namespace GameOfLife
             for (int i = 0; i < 10; i++)
             {
                 Console.Clear();
-                Console.WriteLine(gameOfLife.toStringPretty());
+                Console.WriteLine(gameOfLife.ToString());
                 Thread.Sleep(3000);
                 gameOfLife.next();
 

@@ -126,28 +126,7 @@ namespace GameOfLife
             return res;
         }
 
-        //Tostring , but true is o and false is x
-        public string toStringPretty()
-        {
-            string res = "";
-
-            for (int x = 0; x < board.GetLength(0); x += 1)
-            {
-                for (int y = 0; y < board.GetLength(1); y += 1)
-                {
-                    if (board[x, y])
-                    {
-                        res += "o";
-                    }
-                    else
-                    {
-                        res += "x";
-                    }
-                }
-                res += "\n";
-            }
-            return res;
-        }
+       
     }
 
     
