@@ -15,12 +15,8 @@ namespace GameOfLife
         Stack<int[]> StackOn = new Stack<int[]>();
         Stack<int[]> StackOff = new Stack<int[]>();
 
-        int xDim;
-        int yDim;
         public GameOfLife(bool[,] board) {
             this.board = board;
-            xDim = board.GetLength(0);
-            yDim = board.GetLength(1);
         }
 
         public void next() {
