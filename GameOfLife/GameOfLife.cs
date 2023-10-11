@@ -28,9 +28,13 @@ namespace GameOfLife
             {
                 for (int y = 1; y < board.GetLength(1)-1; y += 1)
                 {
-                    if (!board[x, y])
+                    if (board[x, y])
                     {
-                        reproduction(x, y);
+                        underpopulation(x, y);
+                    }
+                    else
+                    {
+                        reproduction(x,y);
                     }
                 }
             }
@@ -44,6 +48,16 @@ namespace GameOfLife
             if (numberOfAdjacent == 3)
             {
                 StackOn.Push(new[] { x, y });
+            }
+        }
+
+        //when a pixel is active, if there are less than 2 adjacent active pixels, this is deactivated
+        private void underpopulation(int x, int y)
+        {
+            int numberOfAdjacent = countAdjacent(x, y);
+            if (numberOfAdjacent < 2)
+            {
+                StackOff.Push(new[] { x, y });
             }
         }
 
