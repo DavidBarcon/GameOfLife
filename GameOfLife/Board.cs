@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -23,9 +24,6 @@ namespace GameOfLife
             initialize(bools);
             sizeX = bools.GetLength(0);
             sizeY = bools.GetLength(1);
-
-            int c = countAdjacent(new Cell(false, 1,1));
-            Console.WriteLine(c);
         }
 
         //when called empty creates a 10x10 board with all cells dead
@@ -56,14 +54,36 @@ namespace GameOfLife
                     }
                     else
                     {
-                        //Todo: reproduction
+                        reproduction(cell);
                     }
                 }
             }
             updateBoard();
         }
 
-        //applie every change queued
+        //initialize board with a 2d bool array
+        private void initialize(bool[,] bools)
+        {
+            board = new List<Cell>();
+
+            for (int x = 0; x < bools.GetLength(0); x++)
+            {
+                for (int y = 0; y < bools.GetLength(1); y++)
+                {
+                    board.Add(new Cell(bools[x, y], x, y));
+                }
+            }
+        }
+
+        public override bool Equals( object obj )
+        {
+
+            Board boardTemp = (Board)obj;
+            return this.board.SequenceEqual(boardTemp.board);
+
+        }
+
+        //applies every queued change
         private void updateBoard()
         {
             while (StackOff.Count > 0)
@@ -79,20 +99,6 @@ namespace GameOfLife
             }
         }
 
-        //initialize board with a 2d bool array
-        public void initialize(bool[,] bools)
-        {
-            board = new List<Cell>();
-
-            for (int x = 0; x < bools.GetLength(0); x++)
-            {
-                for (int y = 0; y < bools.GetLength(1); y++)
-                {
-                    board.Add(new Cell(bools[x, y], x, y));
-                }
-            }
-        }
-
         private Cell findCell(int x, int y)
         {
             return board.Find(cell =>
@@ -101,6 +107,37 @@ namespace GameOfLife
         }
 
         
+        //when a cell is dead, if there are exactly 3 alive adjacent pixels, this is resurrected
+        private void reproduction(Cell cell)
+        {
+            int numberOfAdjacent = countAdjacent(cell);
+            if (numberOfAdjacent == 3)
+            {
+                StackOn.Push(new[] { cell.x, cell.y });
+            }
+        }
+
+        /*
+        //when a cell is alive, if there are less than 2 adjacent alive cells, this is killed
+        private void underpopulation(int x, int y)
+        {
+            int numberOfAdjacent = countAdjacent(x, y);
+            if (numberOfAdjacent < 2)
+            {
+                StackOff.Push(new[] { x, y });
+            }
+        }
+
+        //when a cell is alive, if there are more than 3 adjacent alive cells, this is killed
+        private void overpopulation(int x, int y)
+        {
+            int numberOfAdjacent = countAdjacent(x, y);
+            if (numberOfAdjacent > 3)
+            {
+                StackOff.Push(new[] { x, y });
+            }
+        }
+        */
 
         //check the number of adjacent alive cells to a said cell
         private int countAdjacent(Cell cell)

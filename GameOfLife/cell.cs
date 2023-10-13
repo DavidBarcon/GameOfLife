@@ -18,5 +18,11 @@ namespace GameOfLife
             this.y = y; 
         }   
 
+        public override bool Equals( object obj )
+        {
+            Cell cell = (Cell)obj;
+            return this.isAlive == cell.isAlive && this.x == cell.x && this.y == cell.y;
+        }
+
     }
 }
