@@ -23,6 +23,9 @@ namespace GameOfLife
             initialize(bools);
             sizeX = bools.GetLength(0);
             sizeY = bools.GetLength(1);
+
+            int c = countAdjacent(new Cell(false, 1,1));
+            Console.WriteLine(c);
         }
 
         //when called empty creates a 10x10 board with all cells dead
@@ -32,6 +35,8 @@ namespace GameOfLife
         }
 
 
+        //ignore cells that are on the borders and change the ones on the middle
+        //when all cells are checked all changes are applied at the same time to avoid overlapping between changes.
         public void next()
         {
             foreach(var cell in board)
@@ -58,6 +63,7 @@ namespace GameOfLife
             updateBoard();
         }
 
+        //applie every change queued
         private void updateBoard()
         {
             while (StackOff.Count > 0)
@@ -73,6 +79,7 @@ namespace GameOfLife
             }
         }
 
+        //initialize board with a 2d bool array
         public void initialize(bool[,] bools)
         {
             board = new List<Cell>();
@@ -93,5 +100,26 @@ namespace GameOfLife
             );
         }
 
+        
+
+        //check the number of adjacent alive cells to a said cell
+        private int countAdjacent(Cell cell)
+        {
+            int res = 0;
+
+            if (findCell(cell.x-1, cell.y-1).isAlive) res++;
+            if (findCell(cell.x-1, cell.y).isAlive) res++;
+            if (findCell(cell.x-1, cell.y+1).isAlive) res++;
+
+            if (findCell(cell.x+1, cell.y-1).isAlive) res++;
+            if (findCell(cell.x+1, cell.y).isAlive) res++;
+            if (findCell(cell.x+1, cell.y+1).isAlive) res++;
+
+            if (findCell(cell.x, cell.y-1).isAlive) res++;
+            if (findCell(cell.x, cell.y+1).isAlive) res++;
+
+            return res;
+        }
+        
     }
 }

@@ -9,9 +9,9 @@ namespace GameOfLife
             //bool[,] board = new bool[5,5];
             bool[,] values=
             {
+                { true, false, true},
                 { false, false, false},
-                { false, false, false},
-                { false, false, false},
+                { false, false, true},
             };
 
             Board board = new Board(values);
