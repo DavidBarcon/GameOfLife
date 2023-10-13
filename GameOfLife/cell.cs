@@ -8,7 +8,7 @@ namespace GameOfLife
 {
     internal class Cell
     {
-        public bool isAlive { get; }
+        public bool isAlive { get; set; }
         public int x { get; }
         public int y { get; }
 
