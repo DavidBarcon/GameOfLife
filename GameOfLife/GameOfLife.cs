@@ -15,11 +15,6 @@ namespace GameOfLife
             this.board = new Board(values);
         }
 
-        public GameOfLife()
-        {
-            this.board = new Board();
-        }
-
         public void next() {
             board.next();
         }

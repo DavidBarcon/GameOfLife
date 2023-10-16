@@ -35,23 +35,34 @@ namespace GameOfLifeTest
             Assert.IsTrue(gameOfLife.Equals(gameOfLifeExpected));
         }
 
-        /*[TestMethod]
+        [TestMethod]
         public void TestUnderpopulationn()
         {
             bool[,] board =
             {
-                { false, false, false, false},
-                { false, true, false, false},
-                { false, false, false, false},
-                { false, false, false, false},
+                { false, false, false},
+                { false, true, false},
+                { false, false , false},
             };
+
+            bool[,] boardExpected =
+            {
+                { false, false, false},
+                { false, false, false},
+                { false, false , false},
+            };
+
+
+
             GameOfLife.GameOfLife gameOfLife =
                 new GameOfLife.GameOfLife(board);
             gameOfLife.next();
-            board = gameOfLife.getBoard();
 
-            Assert.IsFalse(board[1, 1]);
-        }*/
+            GameOfLife.GameOfLife gameOfLifeExpected =
+                new GameOfLife.GameOfLife(boardExpected);
+
+            Assert.IsTrue(gameOfLife.Equals(gameOfLifeExpected));
+        }
 
         /*[TestMethod]
         public void TestOverpopulationn()

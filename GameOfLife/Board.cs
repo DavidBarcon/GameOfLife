@@ -26,12 +26,6 @@ namespace GameOfLife
             sizeY = bools.GetLength(1);
         }
 
-        //when called empty creates a 10x10 board with all cells dead
-        public Board()
-        {
-            initialize(new bool[10,10]);
-        }
-
 
         //ignore cells that are on the borders and change the ones on the middle
         //when all cells are checked all changes are applied at the same time to avoid overlapping between changes.
@@ -50,7 +44,8 @@ namespace GameOfLife
                 {
                     if (cell.isAlive)
                     {
-                        //Todo: underpopulation, overpopulation
+                        underpopulation(cell);
+                        //Todo: overpopulation
                     }
                     else
                     {
@@ -117,17 +112,18 @@ namespace GameOfLife
             }
         }
 
-        /*
+        
         //when a cell is alive, if there are less than 2 adjacent alive cells, this is killed
-        private void underpopulation(int x, int y)
+        private void underpopulation(Cell cell)
         {
-            int numberOfAdjacent = countAdjacent(x, y);
+            int numberOfAdjacent = countAdjacent(cell);
             if (numberOfAdjacent < 2)
             {
-                StackOff.Push(new[] { x, y });
+                StackOff.Push(new[] { cell.x, cell.y });
             }
         }
 
+        /*
         //when a cell is alive, if there are more than 3 adjacent alive cells, this is killed
         private void overpopulation(int x, int y)
         {
