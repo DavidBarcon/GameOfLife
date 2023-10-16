@@ -1,23 +1,11 @@
 namespace GameOfLifeTest
 {
     [TestClass]
-    public class GoLTests
+    public class GoLTests_should
     {
-        [TestMethod]
-        public void TestConstructor()
-        {
-            bool[,] board  = new bool[3,3];
-            GameOfLife.GameOfLife gameOfLife =
-                new GameOfLife.GameOfLife(board);
-
-            Assert.AreEqual("False False False \n" +
-                            "False False False \n" +
-                            "False False False \n",
-                            gameOfLife.ToString());
-        }
 
         [TestMethod]
-        public void TestReproduction()
+        public void activate_a_cell_when_surrounded_by_exactly_three()
         {
             bool[,] board =
             {
@@ -26,50 +14,123 @@ namespace GameOfLifeTest
                 { false, true, true, false},
                 { false, false, false, false},
             };
+
+            bool[,] boardExpected =
+            {
+                { false, false, false, false},
+                { false, true, true, false},
+                { false, true, true, false},
+                { false, false, false, false},
+            };
+
+
+
             GameOfLife.GameOfLife gameOfLife =
                 new GameOfLife.GameOfLife(board);
             gameOfLife.next();
-            board = gameOfLife.getBoard();
 
-            Assert.IsTrue(board[1,1]);
+            GameOfLife.GameOfLife gameOfLifeExpected =
+                new GameOfLife.GameOfLife(boardExpected);
+
+            Assert.IsTrue(gameOfLife.Equals(gameOfLifeExpected));
         }
 
         [TestMethod]
-        public void TestUnderpopulationn()
+        public void kill_a_cell_when_surrounded_by_less_than_two()
         {
             bool[,] board =
             {
-                { false, false, false, false},
-                { false, true, false, false},
-                { false, false, false, false},
-                { false, false, false, false},
+                { false, false, false},
+                { false, true, false},
+                { false, false , false},
             };
+
+            bool[,] boardExpected =
+            {
+                { false, false, false},
+                { false, false, false},
+                { false, false , false},
+            };
+
+
+
             GameOfLife.GameOfLife gameOfLife =
                 new GameOfLife.GameOfLife(board);
             gameOfLife.next();
-            board = gameOfLife.getBoard();
 
-            Assert.IsFalse(board[1, 1]);
+            GameOfLife.GameOfLife gameOfLifeExpected =
+                new GameOfLife.GameOfLife(boardExpected);
+
+            Assert.IsTrue(gameOfLife.Equals(gameOfLifeExpected));
         }
 
         [TestMethod]
-        public void TestOverpopulationn()
+        public void kill_a_cell_when_surrounded_by_more_than_three()
+        {
+
+            // As a side effect, cells in (1,1), (1,3), (3,1), (3,3) should be activated because of the reproduction rule
+            bool[,] board =
+            {
+                { false, false, false, false, false},
+                { false, false, true, false, false},
+                { false, true, true, true, false},
+                { false, false, true, false, false},
+                { false, false, false, false, false},
+            };
+
+            bool[,] boardExpected =
+            {
+                { false, false, false, false, false},
+                { false, true, true, true, false},
+                { false, true, false, true, false},
+                { false, true, true, true, false},
+                { false, false, false, false, false},
+            };
+
+
+
+            GameOfLife.GameOfLife gameOfLife =
+                new GameOfLife.GameOfLife(board);
+            gameOfLife.next();
+
+            GameOfLife.GameOfLife gameOfLifeExpected =
+                new GameOfLife.GameOfLife(boardExpected);
+
+            Assert.IsTrue(gameOfLife.Equals(gameOfLifeExpected));
+        }
+
+        [TestMethod]
+        public void not_change_a_cell_when_surrounded_by_two_or_three()
         {
             bool[,] board =
             {
                 { false, false, false, false},
                 { false, true, true, false},
                 { false, true, true, false},
-                { false, true, false, false},
                 { false, false, false, false},
             };
+
+            bool[,] boardExpected =
+            {
+                { false, false, false, false},
+                { false, true, true, false},
+                { false, true, true, false},
+                { false, false, false, false},
+            };
+
+
+
             GameOfLife.GameOfLife gameOfLife =
                 new GameOfLife.GameOfLife(board);
             gameOfLife.next();
-            board = gameOfLife.getBoard();
 
-            Assert.IsFalse(board[2, 2]);
+            GameOfLife.GameOfLife gameOfLifeExpected =
+                new GameOfLife.GameOfLife(boardExpected);
+
+            Assert.IsTrue(gameOfLife.Equals(gameOfLifeExpected));
         }
+
+
 
     }
 }
