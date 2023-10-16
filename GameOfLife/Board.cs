@@ -45,7 +45,7 @@ namespace GameOfLife
                     if (cell.isAlive)
                     {
                         underpopulation(cell);
-                        //Todo: overpopulation
+                        overpopulation(cell);
                     }
                     else
                     {
@@ -123,17 +123,17 @@ namespace GameOfLife
             }
         }
 
-        /*
+        
         //when a cell is alive, if there are more than 3 adjacent alive cells, this is killed
-        private void overpopulation(int x, int y)
+        private void overpopulation(Cell cell)
         {
-            int numberOfAdjacent = countAdjacent(x, y);
+            int numberOfAdjacent = countAdjacent(cell);
             if (numberOfAdjacent > 3)
             {
-                StackOff.Push(new[] { x, y });
+                StackOff.Push(new[] { cell.x, cell.y });
             }
         }
-        */
+        
 
         //check the number of adjacent alive cells to a said cell
         private int countAdjacent(Cell cell)
