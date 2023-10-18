@@ -1,27 +1,39 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace GameOfLife
+﻿namespace GameOfLife
 {
+    enum states
+    {
+        alive,
+        dead
+    }
     internal class Cell
     {
-        public bool isAlive { get; set; }
-        public int x { get; }
-        public int y { get; }
+        private states state;
+        private int x;
+        private int y;
 
-        public Cell(bool isAlive, int x, int y ) { 
-            this.isAlive = isAlive;
+        public Cell(states isAlive, int x, int y ) { 
+            this.state = isAlive;
             this.x = x;
-            this.y = y; 
+            this.y = y;
         }   
+        public void dead() {
+            state = states.dead;
+        }
+        public void alive() { 
+            state= states.dead;
+        }
+
+        public states getState()
+        {
+            return state;
+        }
+
+
 
         public override bool Equals( object obj )
         {
             Cell cell = (Cell)obj;
-            return this.isAlive == cell.isAlive && this.x == cell.x && this.y == cell.y;
+            return this.state == cell.state && this.x == cell.x && this.y == cell.y;
         }
 
     }

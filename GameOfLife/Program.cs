@@ -7,30 +7,22 @@ namespace GameOfLife
         static void Main(string[] args)
         {
             //bool[,] board = new bool[5,5];
-            bool[,] values=
+            bool[,] values =
             {
-                { true, false, true},
-                { false, false, false},
-                { false, false, true},
+                { false, false, false, false, false},
+                { false, false, true, false, false},
+                { false, true, true, true, false},
+                { false, false, true, false, false},
+                { false, false, false, false, false},
             };
 
-            Board board = new Board(values);
+            //Board board = new Board(values);
 
-            board.next();
+            //board.next();
 
-            /*GameOfLife gameOfLife = new GameOfLife(board);
+            GameOfLife gameOfLife = new GameOfLife(values);
 
-            for (int i = 0; i < 10; i++)
-            {
-                Console.Clear();
-                Console.WriteLine(gameOfLife.ToString());
-                Thread.Sleep(3000);
-                gameOfLife.next();
-
-            }*/
-
-
-
+            gameOfLife.next();
         }
     }
 }

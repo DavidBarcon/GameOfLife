@@ -1,13 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace GameOfLife
+﻿namespace GameOfLife
 {
     internal class Board
     {
@@ -42,7 +33,7 @@ namespace GameOfLife
                 }
                 else
                 {
-                    if (cell.isAlive)
+                    if (cell.state)
                     {
                         underpopulation(cell);
                         overpopulation(cell);
@@ -84,13 +75,13 @@ namespace GameOfLife
             while (StackOff.Count > 0)
             {
                 int[] item = StackOff.Pop();
-                findCell(item[0], item[1]).isAlive = false;
+                findCell(item[0], item[1]).state = false;
             }
 
             while (StackOn.Count > 0)
             {
                 int[] item = StackOn.Pop();
-                findCell(item[0], item[1]).isAlive = true;
+                findCell(item[0], item[1]).state = true;
             }
         }
 
@@ -140,16 +131,16 @@ namespace GameOfLife
         {
             int res = 0;
 
-            if (findCell(cell.x-1, cell.y-1).isAlive) res++;
-            if (findCell(cell.x-1, cell.y).isAlive) res++;
-            if (findCell(cell.x-1, cell.y+1).isAlive) res++;
+            if (findCell(cell.x-1, cell.y-1).state) res++;
+            if (findCell(cell.x-1, cell.y).state) res++;
+            if (findCell(cell.x-1, cell.y+1).state) res++;
 
-            if (findCell(cell.x+1, cell.y-1).isAlive) res++;
-            if (findCell(cell.x+1, cell.y).isAlive) res++;
-            if (findCell(cell.x+1, cell.y+1).isAlive) res++;
+            if (findCell(cell.x+1, cell.y-1).state) res++;
+            if (findCell(cell.x+1, cell.y).state) res++;
+            if (findCell(cell.x+1, cell.y+1).state) res++;
 
-            if (findCell(cell.x, cell.y-1).isAlive) res++;
-            if (findCell(cell.x, cell.y+1).isAlive) res++;
+            if (findCell(cell.x, cell.y-1).state) res++;
+            if (findCell(cell.x, cell.y+1).state) res++;
 
             return res;
         }
